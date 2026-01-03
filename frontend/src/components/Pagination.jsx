@@ -1,4 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
+import './Pagination.css';
 
 const Pagination = ({ totalPages, currentPage }) => {
   const [searchParams] = useSearchParams();
@@ -12,8 +13,8 @@ const Pagination = ({ totalPages, currentPage }) => {
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex justify-center mt-8">
-      <nav className="flex items-center space-x-2">
+    <div className="pagination-container">
+      <nav className="pagination-nav">
         {currentPage > 1 && (
           <Link
             to={getPageLink(currentPage - 1)}
@@ -27,11 +28,7 @@ const Pagination = ({ totalPages, currentPage }) => {
           <Link
             key={page}
             to={getPageLink(page)}
-            className={`px-3 py-2 text-sm font-medium rounded-md ${
-              page === currentPage
-                ? 'text-blue-600 bg-blue-50 border border-blue-500'
-                : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50'
-            }`}
+            className={`pagination-link ${page === currentPage ? 'active' : ''}`}
           >
             {page}
           </Link>
@@ -40,7 +37,7 @@ const Pagination = ({ totalPages, currentPage }) => {
         {currentPage < totalPages && (
           <Link
             to={getPageLink(currentPage + 1)}
-            className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+            className="pagination-link"
           >
             Next
           </Link>

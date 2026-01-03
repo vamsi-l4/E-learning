@@ -1,8 +1,10 @@
+import './Footer.css';
+
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-8 mt-16">
-      <div className="container mx-auto px-4 text-center">
-        <p>&copy; 2024 E-Learning Platform. All rights reserved.</p>
+    <footer className="footer">
+      <div className="footer-container">
+        <p className="footer-text">&copy; 2024 E-Learning Platform. All rights reserved.</p>
       </div>
     </footer>
   );

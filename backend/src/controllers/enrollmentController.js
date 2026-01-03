@@ -50,6 +50,9 @@ const getUserEnrollments = async (req, res) => {
       enrollments = await Enrollment.find({ userId: req.user.user.id })
         .populate('courseId')
         .sort({ enrolledAt: -1 });
+
+      // Filter out enrollments where the course has been deleted
+      enrollments = enrollments.filter(enrollment => enrollment.courseId && enrollment.courseId._id);
     } catch (dbError) {
       console.log('DB not connected, using mock enrollments');
       enrollments = [

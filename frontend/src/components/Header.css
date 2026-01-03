@@ -1,0 +1,75 @@
+.header {
+  background-color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.header-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 640px) { .header-container { max-width: 640px; } }
+@media (min-width: 768px) { .header-container { max-width: 768px; } }
+@media (min-width: 1024px) { .header-container { max-width: 1024px; } }
+@media (min-width: 1280px) { .header-container { max-width: 1280px; } }
+@media (min-width: 1536px) { .header-container { max-width: 1536px; } }
+
+.header-logo {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-nav-link {
+  color: #374151;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.header-nav-link:hover {
+  color: #2563eb;
+}
+
+.header-greeting {
+  color: #374151;
+}
+
+.header-logout-btn {
+  background-color: #ef4444;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.header-logout-btn:hover {
+  background-color: #dc2626;
+}
+
+.header-signup-btn {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.header-signup-btn:hover {
+  background-color: #2563eb;
+}

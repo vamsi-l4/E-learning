@@ -1,0 +1,134 @@
+.dashboard-loading {
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.dashboard-title {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.dashboard-empty {
+  text-align: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.dashboard-empty-text {
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+.dashboard-browse-btn {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s;
+}
+
+.dashboard-browse-btn:hover {
+  background-color: #2563eb;
+}
+
+.dashboard-enrollments {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.enrollment-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.enrollment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.enrollment-course-title {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+}
+
+.enrollment-course-link {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.enrollment-course-link:hover {
+  color: #1e40af;
+}
+
+.enrollment-course-desc {
+  color: #4b5563;
+}
+
+.enrollment-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.enrollment-lessons {
+  margin-bottom: 1rem;
+}
+
+.enrollment-lessons-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.enrollment-lessons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lesson-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 0.25rem;
+}
+
+.lesson-item-left {
+  display: flex;
+  align-items: center;
+}
+
+.lesson-checkbox {
+  margin-right: 0.75rem;
+}
+
+.lesson-text.completed {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+.lesson-video-link {
+  color: #2563eb;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.lesson-video-link:hover {
+  color: #1e40af;
+}
+
+.enrollment-progress {
+  font-size: 0.875rem;
+  color: #4b5563;
+}

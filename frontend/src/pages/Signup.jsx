@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import './Signup.css';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -40,18 +41,18 @@ const Signup = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold text-center mb-6">Sign Up</h1>
+    <div className="signup-container">
+      <h1 className="signup-title">Sign Up</h1>
 
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <div className="signup-error">
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+        <div className="signup-form-group">
+          <label className="signup-label" htmlFor="name">
             Name
           </label>
           <input
@@ -60,13 +61,13 @@ const Signup = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="signup-input"
             required
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+        <div className="signup-form-group">
+          <label className="signup-label" htmlFor="email">
             Email
           </label>
           <input
@@ -75,13 +76,13 @@ const Signup = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="signup-input"
             required
           />
         </div>
 
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+        <div className="signup-form-group">
+          <label className="signup-label" htmlFor="password">
             Password
           </label>
           <input
@@ -90,7 +91,7 @@ const Signup = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="signup-input"
             required
             minLength="6"
           />
@@ -99,15 +100,15 @@ const Signup = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline disabled:opacity-50"
+          className="signup-button"
         >
           {loading ? 'Signing up...' : 'Sign Up'}
         </button>
       </form>
 
-      <p className="text-center mt-4">
+      <p className="signup-footer">
         Already have an account?{' '}
-        <Link to="/login" className="text-blue-500 hover:text-blue-700">
+        <Link to="/login" className="signup-link">
           Login
         </Link>
       </p>

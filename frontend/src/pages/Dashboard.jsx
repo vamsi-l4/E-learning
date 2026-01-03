@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../utils/api';
+import './Dashboard.css';
 
 const Dashboard = () => {
   const [enrollments, setEnrollments] = useState([]);
@@ -34,61 +35,61 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading dashboard...</div>;
+    return <div className="dashboard-loading">Loading dashboard...</div>;
   }
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">My Dashboard</h1>
+      <h1 className="dashboard-title">My Dashboard</h1>
 
       {enrollments.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-600 mb-4">You haven't enrolled in any courses yet.</p>
+        <div className="dashboard-empty">
+          <p className="dashboard-empty-text">You haven't enrolled in any courses yet.</p>
           <Link
             to="/courses"
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600"
+            className="dashboard-browse-btn"
           >
             Browse Courses
           </Link>
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="dashboard-enrollments">
           {enrollments.map(enrollment => (
-            <div key={enrollment._id} className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex justify-between items-start mb-4">
+            <div key={enrollment._id} className="enrollment-card">
+              <div className="enrollment-header">
                 <div>
-                  <h2 className="text-xl font-semibold">
+                  <h2 className="enrollment-course-title">
                     <Link
                       to={`/courses/${enrollment.courseId.slug}`}
-                      className="text-blue-600 hover:text-blue-800"
+                      className="enrollment-course-link"
                     >
                       {enrollment.courseId.title}
                     </Link>
                   </h2>
-                  <p className="text-gray-600">{enrollment.courseId.description}</p>
+                  <p className="enrollment-course-desc">{enrollment.courseId.description}</p>
                 </div>
-                <span className="text-sm text-gray-500">
+                <span className="enrollment-date">
                   Enrolled: {new Date(enrollment.enrolledAt).toLocaleDateString()}
                 </span>
               </div>
 
-              <div className="mb-4">
-                <h3 className="font-semibold mb-2">Lessons</h3>
-                <div className="space-y-2">
+              <div className="enrollment-lessons">
+                <h3 className="enrollment-lessons-title">Lessons</h3>
+                <div className="enrollment-lessons-list">
                   {enrollment.courseId.lessons
                     .sort((a, b) => a.order - b.order)
                     .map(lesson => {
                       const isCompleted = enrollment.progress[lesson._id] || false;
                       return (
-                        <div key={lesson._id} className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                          <div className="flex items-center">
+                        <div key={lesson._id} className="lesson-item">
+                          <div className="lesson-item-left">
                             <input
                               type="checkbox"
                               checked={isCompleted}
                               onChange={(e) => updateProgress(enrollment._id, lesson._id, e.target.checked)}
-                              className="mr-3"
+                              className="lesson-checkbox"
                             />
-                            <span className={isCompleted ? 'line-through text-gray-500' : ''}>
+                            <span className={`lesson-text ${isCompleted ? 'completed' : ''}`}>
                               {lesson.title}
                             </span>
                           </div>
@@ -97,7 +98,7 @@ const Dashboard = () => {
                               href={lesson.videoUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-600 hover:text-blue-800 text-sm"
+                              className="lesson-video-link"
                             >
                               Watch
                             </a>
@@ -108,7 +109,7 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="text-sm text-gray-600">
+              <div className="enrollment-progress">
                 Progress: {Object.values(enrollment.progress).filter(Boolean).length} / {enrollment.courseId.lessons.length} lessons completed
               </div>
             </div>

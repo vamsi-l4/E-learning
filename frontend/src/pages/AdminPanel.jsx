@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../utils/api';
+import './AdminPanel.css';
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('courses');
@@ -73,52 +74,46 @@ const AdminPanel = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading admin panel...</div>;
+    return <div className="admin-panel-loading">Loading admin panel...</div>;
   }
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-8">Admin Panel</h1>
+    <div className="admin-panel-container">
+      <h1 className="admin-panel-title">Admin Panel</h1>
 
-      <div className="mb-6">
-        <nav className="flex space-x-4">
-          {['courses', 'users', 'reports'].map(tab => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 rounded ${
-                activeTab === tab
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
-            </button>
-          ))}
-        </nav>
+      <div className="admin-panel-tabs">
+        {['courses', 'users', 'reports'].map(tab => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`admin-panel-tab ${activeTab === tab ? 'active' : ''}`}
+          >
+            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+          </button>
+        ))}
       </div>
 
       {activeTab === 'courses' && (
         <div>
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold">Courses</h2>
+          <div className="admin-panel-section-header">
+            <h2 className="admin-panel-section-title">Courses</h2>
             <button
               onClick={() => setShowCourseForm(!showCourseForm)}
-              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+              className="admin-panel-add-button"
             >
               {showCourseForm ? 'Cancel' : 'Add Course'}
             </button>
           </div>
 
           {showCourseForm && (
-            <form onSubmit={handleCourseSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">
-              <div className="grid grid-cols-2 gap-4">
+            <form onSubmit={handleCourseSubmit} className="admin-panel-form">
+              <div className="admin-panel-form-grid">
                 <input
                   type="text"
                   placeholder="Title"
                   value={courseForm.title}
                   onChange={(e) => setCourseForm({...courseForm, title: e.target.value})}
-                  className="border p-2 rounded"
+                  className="admin-panel-input"
                   required
                 />
                 <input
@@ -126,7 +121,7 @@ const AdminPanel = () => {
                   placeholder="Slug"
                   value={courseForm.slug}
                   onChange={(e) => setCourseForm({...courseForm, slug: e.target.value})}
-                  className="border p-2 rounded"
+                  className="admin-panel-input"
                   required
                 />
                 <input
@@ -134,7 +129,7 @@ const AdminPanel = () => {
                   placeholder="Price"
                   value={courseForm.price}
                   onChange={(e) => setCourseForm({...courseForm, price: e.target.value})}
-                  className="border p-2 rounded"
+                  className="admin-panel-input"
                   required
                 />
                 <input
@@ -142,13 +137,13 @@ const AdminPanel = () => {
                   placeholder="Category"
                   value={courseForm.category}
                   onChange={(e) => setCourseForm({...courseForm, category: e.target.value})}
-                  className="border p-2 rounded"
+                  className="admin-panel-input"
                   required
                 />
                 <select
                   value={courseForm.difficulty}
                   onChange={(e) => setCourseForm({...courseForm, difficulty: e.target.value})}
-                  className="border p-2 rounded"
+                  className="admin-panel-select"
                 >
                   <option value="beginner">Beginner</option>
                   <option value="intermediate">Intermediate</option>
@@ -159,33 +154,33 @@ const AdminPanel = () => {
                   placeholder="Thumbnail URL"
                   value={courseForm.thumbnailUrl}
                   onChange={(e) => setCourseForm({...courseForm, thumbnailUrl: e.target.value})}
-                  className="border p-2 rounded"
+                  className="admin-panel-input"
                 />
               </div>
               <textarea
                 placeholder="Description"
                 value={courseForm.description}
                 onChange={(e) => setCourseForm({...courseForm, description: e.target.value})}
-                className="border p-2 rounded w-full mt-4"
+                className="admin-panel-textarea"
                 rows="3"
                 required
               />
-              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mt-4 hover:bg-blue-600">
+              <button type="submit" className="admin-panel-submit-button">
                 Create Course
               </button>
             </form>
           )}
 
-          <div className="grid gap-4">
+          <div className="admin-panel-courses-grid">
             {courses.map(course => (
-              <div key={course._id} className="bg-white p-4 rounded-lg shadow flex justify-between items-center">
-                <div>
-                  <h3 className="font-semibold">{course.title}</h3>
-                  <p className="text-gray-600">{course.description}</p>
+              <div key={course._id} className="admin-panel-course-card">
+                <div className="admin-panel-course-info">
+                  <h3>{course.title}</h3>
+                  <p>{course.description}</p>
                 </div>
                 <button
                   onClick={() => deleteCourse(course._id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                  className="admin-panel-delete-button"
                 >
                   Delete
                 </button>
@@ -197,24 +192,24 @@ const AdminPanel = () => {
 
       {activeTab === 'users' && (
         <div>
-          <h2 className="text-2xl font-semibold mb-6">Users</h2>
-          <div className="bg-white rounded-lg shadow overflow-hidden">
-            <table className="w-full">
-              <thead className="bg-gray-50">
+          <h2 className="admin-panel-users-title">Users</h2>
+          <div className="admin-panel-table-container">
+            <table className="admin-panel-table">
+              <thead className="admin-panel-table-header">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Joined</th>
+                  <th className="admin-panel-table-header-cell">Name</th>
+                  <th className="admin-panel-table-header-cell">Email</th>
+                  <th className="admin-panel-table-header-cell">Role</th>
+                  <th className="admin-panel-table-header-cell">Joined</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="admin-panel-table-body">
                 {users.map(user => (
                   <tr key={user._id}>
-                    <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
-                    <td className="px-6 py-4 whitespace-nowrap capitalize">{user.role}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="admin-panel-table-cell">{user.name}</td>
+                    <td className="admin-panel-table-cell">{user.email}</td>
+                    <td className="admin-panel-table-cell">{user.role}</td>
+                    <td className="admin-panel-table-cell">
                       {new Date(user.createdAt).toLocaleDateString()}
                     </td>
                   </tr>
@@ -227,19 +222,19 @@ const AdminPanel = () => {
 
       {activeTab === 'reports' && (
         <div>
-          <h2 className="text-2xl font-semibold mb-6">Reports</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow">
-              <h3 className="text-lg font-semibold mb-2">Total Users</h3>
-              <p className="text-3xl font-bold text-blue-600">{reports.totalUsers}</p>
+          <h2 className="admin-panel-reports-title">Reports</h2>
+          <div className="admin-panel-reports-grid">
+            <div className="admin-panel-report-card">
+              <h3 className="admin-panel-report-title">Total Users</h3>
+              <p className="admin-panel-report-value users">{reports.totalUsers}</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow">
-              <h3 className="text-lg font-semibold mb-2">Total Courses</h3>
-              <p className="text-3xl font-bold text-green-600">{reports.totalCourses}</p>
+            <div className="admin-panel-report-card">
+              <h3 className="admin-panel-report-title">Total Courses</h3>
+              <p className="admin-panel-report-value courses">{reports.totalCourses}</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow">
-              <h3 className="text-lg font-semibold mb-2">Total Enrollments</h3>
-              <p className="text-3xl font-bold text-purple-600">{reports.totalEnrollments}</p>
+            <div className="admin-panel-report-card">
+              <h3 className="admin-panel-report-title">Total Enrollments</h3>
+              <p className="admin-panel-report-value enrollments">{reports.totalEnrollments}</p>
             </div>
           </div>
         </div>

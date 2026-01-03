@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import api from '../utils/api';
 import EnrollmentButton from '../components/EnrollmentButton';
+import './CourseDetail.css';
 
 const CourseDetail = () => {
   const { slug } = useParams();
@@ -39,35 +40,35 @@ const CourseDetail = () => {
   const isEnrolled = enrollments.some(enrollment => enrollment.courseId._id === course?._id);
 
   if (loading) {
-    return <div className="text-center py-8">Loading course...</div>;
+    return <div className="course-detail-loading">Loading course...</div>;
   }
 
   if (!course) {
-    return <div className="text-center py-8">Course not found</div>;
+    return <div className="course-detail-not-found">Course not found</div>;
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+    <div className="course-detail-container">
+      <div className="course-detail-card">
         {course.thumbnailUrl && (
           <img
             src={course.thumbnailUrl}
             alt={course.title}
-            className="w-full h-64 object-cover"
+            className="course-detail-image"
           />
         )}
-        <div className="p-8">
-          <h1 className="text-3xl font-bold mb-4">{course.title}</h1>
-          <div className="flex items-center gap-4 mb-4">
-            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+        <div className="course-detail-content">
+          <h1 className="course-detail-title">{course.title}</h1>
+          <div className="course-detail-meta">
+            <span className="course-detail-badge category">
               {course.category}
             </span>
-            <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm capitalize">
+            <span className="course-detail-badge difficulty">
               {course.difficulty}
             </span>
-            <span className="text-2xl font-bold text-green-600">${course.price}</span>
+            <span className="course-detail-price">${course.price}</span>
           </div>
-          <p className="text-gray-700 mb-6">{course.description}</p>
+          <p className="course-detail-description">{course.description}</p>
           <EnrollmentButton
             courseId={course._id}
             isEnrolled={isEnrolled}
@@ -76,16 +77,16 @@ const CourseDetail = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-8">
-        <h2 className="text-2xl font-bold mb-6">Course Syllabus</h2>
-        <div className="space-y-4">
+      <div className="course-syllabus">
+        <h2 className="course-syllabus-title">Course Syllabus</h2>
+        <div className="course-lessons">
           {course.lessons
             .sort((a, b) => a.order - b.order)
             .map((lesson, index) => (
-              <div key={index} className="border-l-4 border-blue-500 pl-4">
-                <h3 className="font-semibold text-lg">{lesson.title}</h3>
+              <div key={index} className="course-lesson">
+                <h3 className="course-lesson-title">{lesson.title}</h3>
                 <div
-                  className="text-gray-600 mt-2"
+                  className="course-lesson-content"
                   dangerouslySetInnerHTML={{ __html: lesson.contentHtml }}
                 />
                 {lesson.videoUrl && (
@@ -93,7 +94,7 @@ const CourseDetail = () => {
                     href={lesson.videoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 mt-2 inline-block"
+                    className="course-lesson-video-link"
                   >
                     Watch Video
                   </a>

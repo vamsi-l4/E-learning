@@ -15,7 +15,7 @@ const seedData = async () => {
       const admin = new User({
         name: 'Admin User',
         email: 'admin@example.com',
-        passwordHash: '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password: password
+        passwordHash: '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         role: 'admin'
       });
       await admin.save();

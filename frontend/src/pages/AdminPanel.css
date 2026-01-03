@@ -1,0 +1,265 @@
+.admin-panel-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.admin-panel-loading {
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  font-size: 1.125rem;
+  color: #4b5563;
+}
+
+.admin-panel-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #111827;
+}
+
+.admin-panel-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-panel-tab {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 500;
+  color: #6b7280;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.admin-panel-tab:hover {
+  color: #374151;
+}
+
+.admin-panel-tab.active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+}
+
+.admin-panel-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.admin-panel-section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.admin-panel-add-button {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.admin-panel-add-button:hover {
+  background-color: #1d4ed8;
+}
+
+.admin-panel-form {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #e5e7eb;
+}
+
+.admin-panel-form-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .admin-panel-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.admin-panel-input,
+.admin-panel-select,
+.admin-panel-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.admin-panel-textarea {
+  margin-bottom: 1rem;
+}
+
+.admin-panel-submit-button {
+  background-color: #10b981;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.admin-panel-submit-button:hover {
+  background-color: #059669;
+}
+
+.admin-panel-courses-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .admin-panel-courses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .admin-panel-courses-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.admin-panel-course-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.admin-panel-course-info h3 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.admin-panel-course-info p {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.admin-panel-delete-button {
+  background-color: #ef4444;
+  color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  align-self: flex-start;
+}
+
+.admin-panel-delete-button:hover {
+  background-color: #dc2626;
+}
+
+.admin-panel-users-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.admin-panel-table-container {
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.admin-panel-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-panel-table-header {
+  background-color: #f9fafb;
+}
+
+.admin-panel-table-header-cell {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6b7280;
+  letter-spacing: 0.05em;
+}
+
+.admin-panel-table-body {
+  background-color: white;
+}
+
+.admin-panel-table-cell {
+  padding: 1rem 1.5rem;
+  font-size: 0.875rem;
+  color: #111827;
+  border-top: 1px solid #e5e7eb;
+}
+
+.admin-panel-reports-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.admin-panel-reports-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .admin-panel-reports-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.admin-panel-report-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.admin-panel-report-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.admin-panel-report-value {
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.admin-panel-report-value.users { color: #2563eb; }
+.admin-panel-report-value.courses { color: #10b981; }
+.admin-panel-report-value.enrollments { color: #8b5cf6; }

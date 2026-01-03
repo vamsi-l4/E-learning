@@ -1,0 +1,23 @@
+.enrollment-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.enrollment-button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.enrollment-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.enrollment-button.enrolled {
+  background-color: #10b981;
+  cursor: not-allowed;
+}

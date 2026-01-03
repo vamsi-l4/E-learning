@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
+import './EnrollmentButton.css';
 
 const EnrollmentButton = ({ courseId, isEnrolled, onEnroll }) => {
   const { user } = useAuth();
@@ -29,7 +30,7 @@ const EnrollmentButton = ({ courseId, isEnrolled, onEnroll }) => {
     return (
       <button
         disabled
-        className="bg-green-500 text-white px-6 py-3 rounded-lg cursor-not-allowed"
+        className="enrollment-button enrolled"
       >
         Enrolled
       </button>
@@ -40,7 +41,7 @@ const EnrollmentButton = ({ courseId, isEnrolled, onEnroll }) => {
     <button
       onClick={handleEnroll}
       disabled={loading}
-      className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 disabled:opacity-50"
+      className="enrollment-button"
     >
       {loading ? 'Enrolling...' : 'Enroll Now'}
     </button>

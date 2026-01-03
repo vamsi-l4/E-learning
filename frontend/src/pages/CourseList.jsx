@@ -4,6 +4,7 @@ import api from '../utils/api';
 import CourseCard from '../components/CourseCard';
 import FilterBar from '../components/FilterBar';
 import Pagination from '../components/Pagination';
+import './CourseList.css';
 
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
@@ -53,20 +54,36 @@ const CourseList = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading courses...</div>;
+    return (
+      <div className="course-list-container">
+        <div className="course-list-loading">
+          <div className="course-list-loading-text">Loading amazing courses...</div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-8">Courses</h1>
+    <div className="course-list-container">
+      <div className="course-list-header">
+        <h1 className="course-list-title">Explore Courses</h1>
+        <p className="course-list-subtitle">
+          Discover your next learning adventure from our curated collection of expert-led courses
+        </p>
+      </div>
+
       <FilterBar filters={filters} onFilterChange={handleFilterChange} />
+
       {courses.length === 0 ? (
-        <div className="text-center py-8">
-          <p className="text-gray-600">No courses found matching your criteria.</p>
+        <div className="course-list-empty">
+          <h2 className="course-list-empty-text">No courses found</h2>
+          <p className="course-list-empty-suggestion">
+            Try adjusting your filters or search terms to find what you're looking for.
+          </p>
         </div>
       ) : (
         <>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="course-grid">
             {courses.map(course => (
               <CourseCard key={course._id} course={course} />
             ))}

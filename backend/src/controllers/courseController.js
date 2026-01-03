@@ -37,7 +37,7 @@ const getCourses = async (req, res) => {
           price: 49.99,
           category: 'Web Development',
           difficulty: 'beginner',
-          thumbnailUrl: 'https://via.placeholder.com/300x200?text=React',
+          thumbnailUrl: 'https://placehold.co/300x200?text=React',
           lessons: [
             { title: 'What is React?', contentHtml: '<p>React is a JavaScript library.</p>', order: 1 }
           ],
@@ -51,7 +51,7 @@ const getCourses = async (req, res) => {
           price: 79.99,
           category: 'Web Development',
           difficulty: 'advanced',
-          thumbnailUrl: 'https://via.placeholder.com/300x200?text=JS',
+          thumbnailUrl: 'https://placehold.co/300x200?text=JS',
           lessons: [
             { title: 'Closures', contentHtml: '<p>Understanding closures.</p>', order: 1 }
           ],
@@ -105,7 +105,7 @@ const getCourseBySlug = async (req, res) => {
           price: 49.99,
           category: 'Web Development',
           difficulty: 'beginner',
-          thumbnailUrl: 'https://via.placeholder.com/300x200?text=React',
+          thumbnailUrl: 'https://placehold.co/300x200?text=React',
           lessons: [
             { title: 'What is React?', contentHtml: '<p>React is a JavaScript library for building user interfaces.</p>', order: 1 },
             { title: 'Setting up', contentHtml: '<p>Use Create React App.</p>', order: 2 }
@@ -120,7 +120,7 @@ const getCourseBySlug = async (req, res) => {
           price: 79.99,
           category: 'Web Development',
           difficulty: 'advanced',
-          thumbnailUrl: 'https://via.placeholder.com/300x200?text=JS',
+          thumbnailUrl: 'https://placehold.co/300x200?text=JS',
           lessons: [
             { title: 'Closures', contentHtml: '<p>Closures explained</p>', order: 1 }
           ],

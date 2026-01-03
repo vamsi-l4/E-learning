@@ -3,16 +3,20 @@ import { useSearchParams } from 'react-router-dom';
 import api from '../utils/api';
 import CourseCard from '../components/CourseCard';
 import FilterBar from '../components/FilterBar';
+import Pagination from '../components/Pagination';
 
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const filters = {
     category: searchParams.get('category') || '',
     difficulty: searchParams.get('difficulty') || '',
-    search: searchParams.get('search') || ''
+    search: searchParams.get('search') || '',
+    page: parseInt(searchParams.get('page')) || 1
   };
 
   useEffect(() => {
@@ -25,9 +29,13 @@ const CourseList = () => {
       if (filters.category) params.append('category', filters.category);
       if (filters.difficulty) params.append('difficulty', filters.difficulty);
       if (filters.search) params.append('search', filters.search);
+      params.append('page', filters.page);
+      params.append('limit', 9); // 9 courses per page
 
       const res = await api.get(`/courses?${params}`);
-      setCourses(res.data);
+      setCourses(res.data.courses || res.data);
+      setTotalPages(res.data.totalPages || 1);
+      setCurrentPage(res.data.currentPage || 1);
     } catch (error) {
       console.error('Failed to fetch courses:', error);
     } finally {
@@ -40,6 +48,7 @@ const CourseList = () => {
     if (newFilters.category) params.set('category', newFilters.category);
     if (newFilters.difficulty) params.set('difficulty', newFilters.difficulty);
     if (newFilters.search) params.set('search', newFilters.search);
+    params.set('page', 1); // Reset to page 1 when filtering
     setSearchParams(params);
   };
 
@@ -56,11 +65,14 @@ const CourseList = () => {
           <p className="text-gray-600">No courses found matching your criteria.</p>
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {courses.map(course => (
-            <CourseCard key={course._id} course={course} />
-          ))}
-        </div>
+        <>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {courses.map(course => (
+              <CourseCard key={course._id} course={course} />
+            ))}
+          </div>
+          <Pagination totalPages={totalPages} currentPage={currentPage} />
+        </>
       )}
     </div>
   );

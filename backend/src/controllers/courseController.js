@@ -3,8 +3,7 @@ const { validationResult } = require('express-validator');
 
 const getCourses = async (req, res) => {
   try {
-    const { category, search, difficulty } = req.query;
-    let courses;
+    const { category, search, difficulty, page = 1, limit = 9 } = req.query;
     try {
       let query = {};
 
@@ -17,10 +16,19 @@ const getCourses = async (req, res) => {
         ];
       }
 
-      courses = await Course.find(query).sort({ createdAt: -1 });
+      const skip = (page - 1) * limit;
+      const courses = await Course.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit);
+      const total = await Course.countDocuments(query);
+
+      res.json({
+        courses,
+        totalPages: Math.ceil(total / limit),
+        currentPage: parseInt(page),
+        total
+      });
     } catch (dbError) {
       console.log('DB not connected, using mock data');
-      courses = [
+      const mockCourses = [
         {
           _id: '1',
           title: 'Introduction to React',
@@ -31,7 +39,7 @@ const getCourses = async (req, res) => {
           difficulty: 'beginner',
           thumbnailUrl: 'https://via.placeholder.com/300x200?text=React',
           lessons: [
-            { title: 'What is React?', contentHtml: '<p>React is great</p>', order: 1 }
+            { title: 'What is React?', contentHtml: '<p>React is a JavaScript library.</p>', order: 1 }
           ],
           createdAt: new Date()
         },
@@ -39,19 +47,29 @@ const getCourses = async (req, res) => {
           _id: '2',
           title: 'Advanced JavaScript',
           slug: 'advanced-javascript',
-          description: 'Master JS concepts',
+          description: 'Master advanced JavaScript concepts',
           price: 79.99,
           category: 'Web Development',
           difficulty: 'advanced',
           thumbnailUrl: 'https://via.placeholder.com/300x200?text=JS',
           lessons: [
-            { title: 'Closures', contentHtml: '<p>Closures explained</p>', order: 1 }
+            { title: 'Closures', contentHtml: '<p>Understanding closures.</p>', order: 1 }
           ],
           createdAt: new Date()
         }
       ];
+
+      const start = (page - 1) * limit;
+      const end = start + limit;
+      const paginatedCourses = mockCourses.slice(start, end);
+
+      res.json({
+        courses: paginatedCourses,
+        totalPages: Math.ceil(mockCourses.length / limit),
+        currentPage: parseInt(page),
+        total: mockCourses.length
+      });
     }
-    res.json(courses);
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');

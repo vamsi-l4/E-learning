@@ -31,8 +31,21 @@ A comprehensive e-learning platform built with React, Node.js, Express, and Mong
 
 ### Prerequisites
 - Node.js (v16 or higher)
-- MongoDB Atlas account or local MongoDB
+- MongoDB (local installation or MongoDB Atlas)
 - npm or yarn
+
+### MongoDB Setup
+
+#### Option 1: MongoDB Atlas (Cloud)
+1. Create a free account at [MongoDB Atlas](https://www.mongodb.com/atlas)
+2. Create a new cluster
+3. Get your connection string from the "Connect" button
+4. Update the `MONGO_URI` in `backend/.env` with your connection string
+
+#### Option 2: Local MongoDB
+1. Download MongoDB Community Server from [mongodb.com](https://www.mongodb.com/try/download/community)
+2. Install and start MongoDB
+3. Use `mongodb://localhost:27017/elearning` as your `MONGO_URI`
 
 ### Installation
 

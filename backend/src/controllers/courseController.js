@@ -4,18 +4,53 @@ const { validationResult } = require('express-validator');
 const getCourses = async (req, res) => {
   try {
     const { category, search, difficulty } = req.query;
-    let query = {};
+    let courses;
+    try {
+      let query = {};
 
-    if (category) query.category = category;
-    if (difficulty) query.difficulty = difficulty;
-    if (search) {
-      query.$or = [
-        { title: { $regex: search, $options: 'i' } },
-        { description: { $regex: search, $options: 'i' } }
+      if (category) query.category = category;
+      if (difficulty) query.difficulty = difficulty;
+      if (search) {
+        query.$or = [
+          { title: { $regex: search, $options: 'i' } },
+          { description: { $regex: search, $options: 'i' } }
+        ];
+      }
+
+      courses = await Course.find(query).sort({ createdAt: -1 });
+    } catch (dbError) {
+      console.log('DB not connected, using mock data');
+      courses = [
+        {
+          _id: '1',
+          title: 'Introduction to React',
+          slug: 'introduction-to-react',
+          description: 'Learn the basics of React.js',
+          price: 49.99,
+          category: 'Web Development',
+          difficulty: 'beginner',
+          thumbnailUrl: 'https://via.placeholder.com/300x200?text=React',
+          lessons: [
+            { title: 'What is React?', contentHtml: '<p>React is great</p>', order: 1 }
+          ],
+          createdAt: new Date()
+        },
+        {
+          _id: '2',
+          title: 'Advanced JavaScript',
+          slug: 'advanced-javascript',
+          description: 'Master JS concepts',
+          price: 79.99,
+          category: 'Web Development',
+          difficulty: 'advanced',
+          thumbnailUrl: 'https://via.placeholder.com/300x200?text=JS',
+          lessons: [
+            { title: 'Closures', contentHtml: '<p>Closures explained</p>', order: 1 }
+          ],
+          createdAt: new Date()
+        }
       ];
     }
-
-    const courses = await Course.find(query).sort({ createdAt: -1 });
     res.json(courses);
   } catch (error) {
     console.error(error.message);
@@ -38,7 +73,44 @@ const getCourse = async (req, res) => {
 
 const getCourseBySlug = async (req, res) => {
   try {
-    const course = await Course.findOne({ slug: req.params.slug });
+    let course;
+    try {
+      course = await Course.findOne({ slug: req.params.slug });
+    } catch (dbError) {
+      console.log('DB not connected, using mock data');
+      const mockCourses = [
+        {
+          _id: '1',
+          title: 'Introduction to React',
+          slug: 'introduction-to-react',
+          description: 'Learn the basics of React.js',
+          price: 49.99,
+          category: 'Web Development',
+          difficulty: 'beginner',
+          thumbnailUrl: 'https://via.placeholder.com/300x200?text=React',
+          lessons: [
+            { title: 'What is React?', contentHtml: '<p>React is a JavaScript library for building user interfaces.</p>', order: 1 },
+            { title: 'Setting up', contentHtml: '<p>Use Create React App.</p>', order: 2 }
+          ],
+          createdAt: new Date()
+        },
+        {
+          _id: '2',
+          title: 'Advanced JavaScript',
+          slug: 'advanced-javascript',
+          description: 'Master JS concepts',
+          price: 79.99,
+          category: 'Web Development',
+          difficulty: 'advanced',
+          thumbnailUrl: 'https://via.placeholder.com/300x200?text=JS',
+          lessons: [
+            { title: 'Closures', contentHtml: '<p>Closures explained</p>', order: 1 }
+          ],
+          createdAt: new Date()
+        }
+      ];
+      course = mockCourses.find(c => c.slug === req.params.slug);
+    }
     if (!course) {
       return res.status(404).json({ message: 'Course not found' });
     }

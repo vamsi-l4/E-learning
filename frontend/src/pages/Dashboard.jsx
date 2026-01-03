@@ -78,7 +78,7 @@ const Dashboard = () => {
                   {enrollment.courseId.lessons
                     .sort((a, b) => a.order - b.order)
                     .map(lesson => {
-                      const isCompleted = enrollment.progress.get(lesson._id) || false;
+                      const isCompleted = enrollment.progress[lesson._id] || false;
                       return (
                         <div key={lesson._id} className="flex items-center justify-between p-3 bg-gray-50 rounded">
                           <div className="flex items-center">
@@ -109,7 +109,7 @@ const Dashboard = () => {
               </div>
 
               <div className="text-sm text-gray-600">
-                Progress: {Array.from(enrollment.progress.values()).filter(Boolean).length} / {enrollment.courseId.lessons.length} lessons completed
+                Progress: {Object.values(enrollment.progress).filter(Boolean).length} / {enrollment.courseId.lessons.length} lessons completed
               </div>
             </div>
           ))}
